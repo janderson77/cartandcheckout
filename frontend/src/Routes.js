@@ -7,7 +7,7 @@ import NoPage from "./components/NoPage";
 const AppRoutes = () => {
     return(
         <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginRegister />} />
             <Route path="*" element={<NoPage />} />
         </Routes>
