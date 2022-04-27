@@ -52,7 +52,7 @@ const Login = () => {
             endpoint = "register"
         }else{
             data = {
-                username: loginInfo.username,
+                email: loginInfo.email,
                 password: loginInfo.password
             }
             endpoint = "login"
@@ -103,12 +103,11 @@ const Login = () => {
                 />
             </div>
             <div className="form-group">
-                <label>Email</label>
+                <label>Username</label>
                 <input
-                type="email"
-                name="email"
+                name="username"
                 className="form-control"
-                value={loginInfo.email}
+                value={loginInfo.username}
                 onChange={handleChange}
                 />
             </div>
@@ -137,14 +136,15 @@ const Login = () => {
                     </div>
                     </div>
                     <div className="card">
-                    <div className="card-body">
-                        <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>Username</label>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                            <label>Email</label>
                             <input
-                            name="username"
+                            type="email"
+                            name="email"
                             className="form-control"
-                            value={loginInfo.username}
+                            value={loginInfo.email}
                             onChange={handleChange}
                             />
                         </div>
