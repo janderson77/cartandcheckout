@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 
 app.use(express.json());
 
@@ -8,6 +9,7 @@ app.use(morgan("tiny"));
 
 const userRoutes = require("./routes/users")
 
+app.use(cors())
 app.use('/users', userRoutes)
 
 // 404 handler
