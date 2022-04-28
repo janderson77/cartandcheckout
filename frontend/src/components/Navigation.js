@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {Navbar, NavItem, NavbarBrand, NavLink} from 'reactstrap'
+import {Nav, Navbar, NavItem, NavbarBrand, NavLink, Container} from 'reactstrap'
 import {logout} from '../actions/users'
 
 const Navigation = () => {
@@ -18,13 +18,13 @@ const Navigation = () => {
     const loggedInNav = () => {
         return(
         <Navbar color='dark'>
-            <NavbarBrand href="/">C&C</NavbarBrand>
-            <NavItem>
-                <NavLink href="/" onClick={handleLogout}>Logout</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/cart">Cart</NavLink>
-            </NavItem>
+                <NavbarBrand href="/">C&C</NavbarBrand>
+                <div className='d-flex'>
+                <Nav classname="me-auto">
+                        <NavLink href="/" onClick={handleLogout}>Logout</NavLink>
+                        <NavLink href="/cart">Cart</NavLink>
+                </Nav>
+                </div>
         </Navbar>
         )
     };
@@ -32,13 +32,14 @@ const Navigation = () => {
     const loggedOutNav = () => {
         return(
         <Navbar color='dark'>
-            <NavbarBrand href="/">C&C</NavbarBrand>
-            <NavItem>
-                <NavLink href="/login">Login</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/cart">Cart</NavLink>
-            </NavItem>
+                <NavbarBrand href="/">C&C</NavbarBrand>
+                <div className='d-flex'>
+                    <Nav className='me-auto'>
+                    
+                        <NavLink href="/login">Login</NavLink>
+                        <NavLink href="/cart">Cart</NavLink>
+                    </Nav>
+                </div>
         </Navbar>
         )
     };
