@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {Nav, Navbar, NavItem, NavbarBrand, NavLink, Container} from 'reactstrap'
+import {Nav, Navbar, NavbarBrand, NavLink} from 'reactstrap'
 import {logout} from '../actions/users'
 
 const Navigation = () => {
