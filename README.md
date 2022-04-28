@@ -8,7 +8,6 @@ This is a React.js application powered by Redux, Node.js that demonstrates how R
 
 ## Next Steps
 
-* Create Logout feature
 * Create a user profile page
 * Create a storefront page
 * Create a shopping cart feature and cart page
