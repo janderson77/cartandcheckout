@@ -64,14 +64,14 @@ const Login = () => {
             } catch (errors){
                 return setLoginInfo(l => ({ ...l, errors }));
             }
-            navigate('/cart')
+            navigate('/profile')
         }else if(endpoint === 'register'){
             try{
                 handleRegister();
             }catch (errors) {
                 return setLoginInfo(l => ({ ...l, errors }))
             }
-            navigate('/cart')
+            navigate('/profile')
         };
     };
 

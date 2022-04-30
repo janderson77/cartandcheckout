@@ -23,6 +23,7 @@ const Navigation = () => {
                 <Nav classname="me-auto">
                         <NavLink href="/" onClick={handleLogout}>Logout</NavLink>
                         <NavLink href="/cart">Cart</NavLink>
+                        <NavLink href="/profile">Profile</NavLink>
                 </Nav>
                 </div>
         </Navbar>
