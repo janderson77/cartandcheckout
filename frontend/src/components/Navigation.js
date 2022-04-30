@@ -20,7 +20,7 @@ const Navigation = () => {
         <Navbar color='dark'>
                 <NavbarBrand href="/">C&C</NavbarBrand>
                 <div className='d-flex'>
-                <Nav classname="me-auto">
+                <Nav className="me-auto">
                         <NavLink href="/" onClick={handleLogout}>Logout</NavLink>
                         <NavLink href="/cart">Cart</NavLink>
                         <NavLink href="/profile">Profile</NavLink>
