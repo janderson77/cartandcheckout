@@ -1,4 +1,4 @@
-# Cart and Checkout React.js Demo
+# Cart and Checkout React.js/Node.js Demo
 
 [![GitHub Stars](https://img.shields.io/github/stars/janderson77/cartandcheckout.svg)](https://github.com/janderson77/cartandcheckout/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/janderson77/cartandcheckout.svg)](https://github.com/janderson77/cartandcheckout/issues) [![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/janderson77/cartandcheckout)
 
