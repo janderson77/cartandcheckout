@@ -64,4 +64,23 @@ router.get('/:userid/addresses', authRequired, async (req, res, next) => {
     };
 });
 
+router.post('/:userid/addresses', authRequired, async (req, res, next) => {
+    try{
+        const address = {
+            streetone: req.body.streetone,
+            streettwo: req.body.streettwo,
+            city: req.body.city,
+            state: req.body.state,
+            postalcode: req.body.postalcode,
+            country: req.body.country,
+            phonenumber: req.body.phonenumber
+        };
+        const addressres = await User.addAddress({userid: req.body.userid, ...address})
+
+        return res.json(addressres)
+    }catch(e){
+        return next(e)
+    };
+});
+
 module.exports = router;

@@ -145,7 +145,7 @@ class User{
             RETURNING addressid
         `, [data.streetone, data.streettwo, data.city, data.state, data.postalcode, data.country, data.phonenumber]);
 
-        if(!res.data.addressid){
+        if(res.rows.length === 0){
             let error = new Error('Please check your data');
             error.status = 400;
             throw error
@@ -156,7 +156,14 @@ class User{
             (userid, addressid)
             VALUES
             ($1, $2)
-        `, [data.userid, res.data.addressid]);
+            RETURNING userid, addressid
+        `, [data.userid, res.rows[0].addressid]);
+
+        if(restwo.rows.length === 0){
+            let error = new Error('Failure at user_addresses');
+            error.status = 400;
+            throw error
+        }
 
         let finalResult = {
             status: 201,
