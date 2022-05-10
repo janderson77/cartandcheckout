@@ -8,6 +8,8 @@ This is a React.js application powered by Redux, Node.js that demonstrates how R
 
 ## Next Steps
 
+* Improve security of adding and geting addresses
+* Create json schema for addresses
 * Create a user profile page
 * Create a storefront page
 * Create a shopping cart feature and cart page
