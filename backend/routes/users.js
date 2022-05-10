@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const {authRequired} = require("../middleware/auth")
+
 const User = require("../models/user");
 const { validate } = require("jsonschema");
 
@@ -8,7 +10,7 @@ const {userNewSchema, userAuthSchema} = require("../schemas/index");
 
 const createToken = require("../helpers/createToken")
 
-router.post("/register", async function(req, res, next){
+router.post("/register", async (req, res, next) =>{
     try{
         if(req.body._token){
             delete req.body._token
@@ -31,7 +33,7 @@ router.post("/register", async function(req, res, next){
     }
 });
 
-router.post("/login", async function(req, res, next){
+router.post("/login", async (req, res, next) => {
     try{
         const isValid = validate(req.body, userAuthSchema);
 
@@ -50,6 +52,19 @@ router.post("/login", async function(req, res, next){
     }catch(e){
         return next(e)
     }
-})
+});
+
+router.get('/:userid/addresses', authRequired, async (req, res, next) => {
+    try{
+        const addresses = await User.getAddresses(req.body.userid)
+        return res.json(addresses)
+        
+    }catch(e){
+        return next({
+            status: 400,
+            message: "Something went wrong. Try again later."
+        });
+    };
+});
 
 module.exports = router;

@@ -127,10 +127,6 @@ class User{
             if(isCorrectPassword) {
                 delete user.password;
 
-                // Add function to get user brews
-                // Add function to get user reviews
-                // Add function to get user saved recipes
-
                 return user;
             };
         };
@@ -139,6 +135,54 @@ class User{
         invalidPassword.status = 401;
         throw invalidPassword
     };
+
+    static async addAddress(data){
+        const res = await db.query(`
+            INSERT INTO addresses
+            (streetone, streettwo, city, state, postalcode, country, phonenumber)
+            VALUES
+            ($1,$2,$3,$4,$5,$6,$7)
+            RETURNING addressid
+        `, [data.streetone, data.streettwo, data.city, data.state, data.postalcode, data.country, data.phonenumber]);
+
+        if(!res.data.addressid){
+            let error = new Error('Please check your data');
+            error.status = 400;
+            throw error
+        };
+
+        const restwo = await db.query(`
+            INSERT INTO user_addresses
+            (userid, addressid)
+            VALUES
+            ($1, $2)
+        `, [data.userid, res.data.addressid]);
+
+        let finalResult = {
+            status: 201,
+            message: "Address added."
+        };
+
+        return finalResult;
+    }
+
+    static async getAddresses(data){
+        const res = await db.query(`
+            SELECT *
+            FROM user_addresses
+            WHERE userid = $1
+            RIGHT JOIN addresses
+            ON addresses.addressid = user_addresses.addressid
+        `, [data.userid]);
+
+        if((res).rows.length === 0){
+            return{
+                status: 404,
+                message: "You have not added any addresses yet."
+            };
+        };
+        return res.rows;
+    }
 };
 
 module.exports = User;
