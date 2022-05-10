@@ -170,9 +170,9 @@ class User{
         const res = await db.query(`
             SELECT *
             FROM user_addresses
-            WHERE userid = $1
             RIGHT JOIN addresses
             ON addresses.addressid = user_addresses.addressid
+            WHERE userid = $1
         `, [data.userid]);
 
         if((res).rows.length === 0){

@@ -60,10 +60,7 @@ router.get('/:userid/addresses', authRequired, async (req, res, next) => {
         return res.json(addresses)
         
     }catch(e){
-        return next({
-            status: 400,
-            message: "Something went wrong. Try again later."
-        });
+        return next(e);
     };
 });
 

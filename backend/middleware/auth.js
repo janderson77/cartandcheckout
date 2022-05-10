@@ -15,3 +15,7 @@ function authRequired(req, res, next) {
       return next(unauthorized);
     }
   }
+
+module.exports = {
+    authRequired
+};
