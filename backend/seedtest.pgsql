@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS cartandcheckout_db;
-CREATE DATABASE cartandcheckout_db;
+DROP DATABASE IF EXISTS cartandcheckout_db_test;
+CREATE DATABASE cartandcheckout_db_test;
 
-\c cartandcheckout_db;
+\c cartandcheckout_db_test;
 
 CREATE TABLE users (
     userid INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
