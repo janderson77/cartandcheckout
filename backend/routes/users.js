@@ -6,7 +6,7 @@ const {authRequired} = require("../middleware/auth")
 const User = require("../models/user");
 const { validate } = require("jsonschema");
 
-const {userNewSchema, userAuthSchema} = require("../schemas/index");
+const {userNewSchema, userAuthSchema, userAddressNewSchema} = require("../schemas/index");
 
 const createToken = require("../helpers/createToken")
 
@@ -66,6 +66,18 @@ router.get('/:userid/addresses', authRequired, async (req, res, next) => {
 
 router.post('/:userid/addresses', authRequired, async (req, res, next) => {
     try{
+        let addressToValidate = req.body;
+        delete addressToValidate.userid 
+        delete addressToValidate._token
+        
+        const isValid = validate(addressToValidate, userAddressNewSchema)
+        if(!isValid.valid){
+            return next({
+                status: 400,
+                message: isValid.errors.map(e => e.stack)
+            });
+        };
+
         const address = {
             streetone: req.body.streetone,
             streettwo: req.body.streettwo,
