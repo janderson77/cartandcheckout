@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Address Schema",
+    "required": [
+        "streetone",
+        "city",
+        "state",
+        "postalcode",
+        "country"
+    ],
+    "properties": {
+        "streetone": {
+            "type": "string",
+            "default": "",
+            "title": "The streetone Schema",
+            "examples": [
+                "600 W 600 S"
+            ]
+        },
+        "streettwo": {
+            "type": "string",
+            "default": "",
+            "title": "The streettwo Schema",
+            "examples": [
+                "Apt 205"
+            ]
+        },
+        "city": {
+            "type": "string",
+            "default": "",
+            "title": "The city Schema",
+            "examples": [
+                "Seattle"
+            ]
+        },
+        "state": {
+            "type": "string",
+            "$ref": "#/definitions/state",
+            "default": "",
+            "title": "The state Schema",
+            "examples": ["WA","CT","UT"]
+        },
+        "postalcode": {
+            "type": "string",
+            "default": "",
+            "title": "The postalcode Schema",
+            "examples": [
+                "85666"
+            ]
+        },
+        "country": {
+            "type": "string",
+            "default": "United States",
+            "title": "The country Schema",
+            "examples": [
+                "United States"
+            ]
+        },
+        "phonenumber": {
+            "type": "string",
+            "default": "",
+            "title": "The phonenumber Schema",
+            "examples": [
+                "8885555858"
+            ]
+        }
+    },
+    "$defs": {
+        "state": {"enum": ["AL", "AK", "AS", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FM", "FL", "GA", "GU", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MH", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "MP", "OH", "OK", "OR", "PW", "PA", "PR", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VI", "VA", "WA", "WV", "WI", "WY"]}
+    },
+    "additionalProperties": false
+}
