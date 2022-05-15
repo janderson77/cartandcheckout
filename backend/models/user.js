@@ -180,9 +180,9 @@ class User{
             RIGHT JOIN addresses
             ON addresses.addressid = user_addresses.addressid
             WHERE userid = $1
-        `, [data.userid]);
+        `, [data]);
 
-        if((res).rows.length === 0){
+        if(res.rows.length === 0){
             return{
                 status: 404,
                 message: "You have not added any addresses yet."

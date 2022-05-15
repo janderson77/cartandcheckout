@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {authRequired} = require("../middleware/auth")
+const {authRequired, ensureCorrectUser} = require("../middleware/auth")
 
 const User = require("../models/user");
 const { validate } = require("jsonschema");
@@ -54,7 +54,7 @@ router.post("/login", async (req, res, next) => {
     }
 });
 
-router.get('/:userid/addresses', authRequired, async (req, res, next) => {
+router.get('/:userid/addresses', authRequired, ensureCorrectUser, async (req, res, next) => {
     try{
         const addresses = await User.getAddresses(req.body.userid)
         return res.json(addresses)
@@ -64,11 +64,9 @@ router.get('/:userid/addresses', authRequired, async (req, res, next) => {
     };
 });
 
-router.post('/:userid/addresses', authRequired, async (req, res, next) => {
+router.post('/:userid/addresses', authRequired, ensureCorrectUser, async (req, res, next) => {
     try{
-        let addressToValidate = req.body;
-        delete addressToValidate.userid 
-        delete addressToValidate._token
+        let addressToValidate = req.body.address;
         
         const isValid = validate(addressToValidate, userAddressNewSchema)
         if(!isValid.valid){
@@ -79,13 +77,13 @@ router.post('/:userid/addresses', authRequired, async (req, res, next) => {
         };
 
         const address = {
-            streetone: req.body.streetone,
-            streettwo: req.body.streettwo,
-            city: req.body.city,
-            state: req.body.state,
-            postalcode: req.body.postalcode,
-            country: req.body.country,
-            phonenumber: req.body.phonenumber
+            streetone: req.body.address.streetone,
+            streettwo: req.body.address.streettwo,
+            city: req.body.address.city,
+            state: req.body.address.state,
+            postalcode: req.body.address.postalcode,
+            country: req.body.address.country,
+            phonenumber: req.body.address.phonenumber
         };
         const addressres = await User.addAddress({userid: req.body.userid, ...address})
 
