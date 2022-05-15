@@ -1,9 +1,11 @@
-import React, {useState, Fragment} from "react";
-import {useDispatch} from 'react-redux';
+import React, {useState, Fragment, useEffect} from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {login, register} from '../actions/users';
 import Alert from './Alert'
 import {Helmet} from 'react-helmet';
+import {css} from '@emotion/react';
+import {BeatLoader} from 'react-spinners/BeatLoader'
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -17,6 +19,27 @@ const Login = () => {
         email: "",
         errors: []
     });
+
+    let user = useSelector(st => st.users);
+
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+    useEffect(() => {
+        if(isLoggingIn === true){
+            return(
+                <div>
+                    <BeatLoader />
+                </div>
+                
+            )
+        }
+    },[isLoggingIn])
+
+    useEffect(() => {
+        if(user.user && isLoggingIn === false){
+            navigate(`/users/${user.user.userid}`)
+        }
+    },[navigate,user])
 
     let data;
 
@@ -60,18 +83,20 @@ const Login = () => {
 
         if(endpoint === "login"){
             try {
+                setIsLoggingIn(true)
                 handleLogin();
             } catch (errors){
                 return setLoginInfo(l => ({ ...l, errors }));
             }
-            navigate('/profile')
+            setIsLoggingIn(false);
         }else if(endpoint === 'register'){
             try{
+                setIsLoggingIn(true);
                 handleRegister();
             }catch (errors) {
                 return setLoginInfo(l => ({ ...l, errors }))
             }
-            navigate('/profile')
+            setIsLoggingIn(false);
         };
     };
 
