@@ -4,8 +4,8 @@ import {useNavigate} from 'react-router-dom';
 import {login, register} from '../actions/users';
 import Alert from './Alert'
 import {Helmet} from 'react-helmet';
-import {css} from '@emotion/react';
-import {BeatLoader} from 'react-spinners/BeatLoader'
+import {Spinner} from 'reactstrap'
+import css from "./css/LoginRegister.css"
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -23,17 +23,6 @@ const Login = () => {
     let user = useSelector(st => st.users);
 
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-
-    useEffect(() => {
-        if(isLoggingIn === true){
-            return(
-                <div>
-                    <BeatLoader />
-                </div>
-                
-            )
-        }
-    },[isLoggingIn])
 
     useEffect(() => {
         if(user.user && isLoggingIn === false){
@@ -139,10 +128,22 @@ const Login = () => {
         </div>
     );
 
-    return(
-        <Fragment>
-            <Helmet><title>Login/SignUp</title></Helmet>
-            <div className="Login d-flex justify-content-center align-items-center">
+    let loggingInView = () => {
+        return(
+            <Fragment>
+                <div className="Spinner d-flex justify-content-center align-items-center">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>   
+            </Fragment>
+        )
+    };
+
+    let standardView = () => {
+        return(
+            <Fragment>
+                <div className="Login d-flex justify-content-center align-items-center">
                 <div className="container col-md-6 offset-md-3 col-lg-4 offset-lg-4">
                     <div className="d-flex justify-content-end">
                     <div className="btn-group">
@@ -200,6 +201,22 @@ const Login = () => {
                     </div>
                 </div>
                 </div>
+            </Fragment>
+        )
+    };
+
+    let currentview;
+
+    if(isLoggingIn === true){
+        currentview = loggingInView();
+    }else{
+        currentview = standardView();
+    };
+
+    return(
+        <Fragment>
+            <Helmet><title>Login/SignUp</title></Helmet>
+            {currentview}
         </Fragment>
         
     )

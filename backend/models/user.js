@@ -174,6 +174,7 @@ class User{
     }
 
     static async getAddresses(data){
+        console.log(data)
         const res = await db.query(`
             SELECT *
             FROM user_addresses

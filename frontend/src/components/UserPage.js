@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import ProfileProduct from "../containers/ProfileProcuct";
@@ -8,9 +8,9 @@ import profileBlank from '../static/profileBlank.svg';
 
 const UserPage = () => {
     const user = useSelector(st => st.users.user);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    let userProducts;
+    // let userProducts;
 
     if(!user){
         return(

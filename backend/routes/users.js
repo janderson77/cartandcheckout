@@ -56,7 +56,7 @@ router.post("/login", async (req, res, next) => {
 
 router.get('/:userid/addresses', authRequired, ensureCorrectUser, async (req, res, next) => {
     try{
-        const addresses = await User.getAddresses(req.body.userid)
+        const addresses = await User.getAddresses(req.body.userid || req.query.userid)
         return res.json(addresses)
         
     }catch(e){

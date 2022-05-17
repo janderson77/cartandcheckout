@@ -26,7 +26,7 @@ async function ensureCorrectUser(req, res, next) {
       SELECT username
       FROM users
       WHERE userid = $1
-    `,[req.body.userid])
+    `,[req.body.userid || req.query.userid])
 
     if (req.username === userid.rows[0].username) {
       return next();
