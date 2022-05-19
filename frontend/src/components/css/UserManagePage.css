@@ -1,3 +1,16 @@
-.Spinner {
+
+.profile-area {
+    width: 30%;
     margin-top: 2rem;
+    justify-content: space-around;
+}
+.address-area {
+    width: 40%;
+    margin-top: 2rem;
+    justify-content: space-between;
+}
+
+.address-card{
+    margin-top: 1rem;
+    width: 15rem;
 }

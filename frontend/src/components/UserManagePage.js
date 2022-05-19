@@ -1,58 +1,49 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState} from "react";
+import {Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import { Helmet } from "react-helmet";
 import profileBlank from '../static/profileBlank.svg';
-import {Spinner} from 'reactstrap'
-import axios from "axios";
+import './css/UserManagePage.css'
 
 
 const UserManagePage = () => {
     let user = useSelector(st => st.users.user);
-    let [dataReady, setDataReady] = useState(false);
-    const baseURL = process.env.baseURL || "http://localhost:3001/"
 
-    let userAddresses;           
-
-    const getAddresses = async (data) => {
-        try{
-            const res = await axios.get(`${baseURL}users/${data.userid}/addresses`, {params:{
-                _token: data._token,
-                userid: data.userid
-            }})
-
-            // ***************** Time to set this up to use Redux ************
-            userAddresses = res.data;
-            setDataReady(true)
-        }catch(e){
-            console.log(e)
-        }
-        
+    if(!user){return(
+        <Navigate to={"/login"} />
+        )
     };
-
-    useEffect(() => {
-            getAddresses(user)
-        });
-
-    // user.addresses ? userAddresses = Object.values(user.addresses) : userAddresses = {};
+      
 
     let addressesList;
-    console.log(userAddresses)
-    if(userAddresses){
-        addressesList = userAddresses.map(e => (
-            <div key={e.addressid} className="card">
+    if(user.addresses){
+        addressesList = user.addresses.map(e => (
+            <div key={e.addressid} className="card address-card col-lg-8">
                 <div className="card-body">
-                    <h5 className="card-title">Address {e.addressid}</h5>
+                    <h5 className="card-title">{user.first_name} {user.last_name}</h5>
                     <p className="card-text">
                         {e.streetone}<br/>
                         {e.streettwo ? e.streettwo : null} <br/>
+                        {e.state}<br/>
+                        {e.postalcode}<br/>
+                        {e.phonenumber}
                     </p>
                 </div>
             </div>
-        ))
+        ));
     }else{
         addressesList = (
             <div>
                 <h4>No Addresses</h4>
+            </div>
+        )
+    };
+    let userInfo = () => {
+        return(
+            <div>
+                <div>{user.first_name} {user.last_name}</div>
+                <div>{user.username}</div>
+                <div>{user.email}</div>
             </div>
         )
     }
@@ -62,20 +53,17 @@ const UserManagePage = () => {
             <Fragment>
                 <h1>User Manage Page</h1>
                 <h3>{user.username}</h3>
-                <div>
-                    {addressesList}
+                <div className="container address-container d-flex flex-row">
+                    <div className="row profile-area">
+                        <h2>Profile stuff</h2>
+                        {userInfo()}
+                    </div>
+                    <div className="row address-area">
+                            {addressesList}
+                    </div>
                 </div>
                 
-            </Fragment>
-        )
-    };
-
-    const loadingView = () => {
-        return(
-            <Fragment>
-                <div className="Spinner d-flex justify-content-center align-items-center">
-                    <Spinner animation="border" role="status" />
-                </div>   
+                
             </Fragment>
         )
     };
@@ -83,7 +71,7 @@ const UserManagePage = () => {
 return(
     <Fragment>
         <Helmet><title>Cart and Checkout Demo || {user.username} Manage</title></Helmet>
-        {dataReady ? readyView() : loadingView()}
+        {readyView()}
     </Fragment>
     
     

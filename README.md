@@ -8,8 +8,7 @@ This is a React.js application powered by Redux, Node.js that demonstrates how R
 
 ## Next Steps
 
-* Improve validation for address in address schema
-* Create a user profile page
+* Add name option to addresses including middle name/initial
 * Create a storefront page
 * Create a shopping cart feature and cart page
 * Add functionality to add digital product to a cart

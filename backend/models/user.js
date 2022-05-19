@@ -127,6 +127,17 @@ class User{
             if(isCorrectPassword) {
                 delete user.password;
 
+                const addressRes = await db.query(`
+                SELECT * FROM user_addresses
+                RIGHT JOIN addresses ON addresses.addressid=user_addresses.addressid
+                WHERE user_addresses.userid=$1
+                `,[user.userid])
+                if(addressRes.rows.length > 0){
+                    user.addresses=addressRes.rows
+                }else{
+                    user.addresses = [];
+                }
+
                 return user;
             };
         };
