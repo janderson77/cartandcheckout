@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState} from "react";
-import {Navigate} from 'react-router-dom';
+import {Navigate, NavLink} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import { Helmet } from "react-helmet";
 import profileBlank from '../static/profileBlank.svg';
@@ -38,6 +38,15 @@ const UserManagePage = () => {
             </div>
         )
     };
+
+    const AddAddressButton = () => {
+        return(
+        <NavLink className="btn btn-primary mt-4" to={`/users/${user.userid}/manage/address`}>
+                <div>Add Address</div>
+        </NavLink>
+        )
+    };
+
     let userInfo = () => {
         return(
             <div>
@@ -60,6 +69,7 @@ const UserManagePage = () => {
                     </div>
                     <div className="row address-area">
                             {addressesList}
+                            <AddAddressButton />
                     </div>
                 </div>
                 
@@ -67,6 +77,8 @@ const UserManagePage = () => {
             </Fragment>
         )
     };
+
+    
 
 return(
     <Fragment>

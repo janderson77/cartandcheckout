@@ -5,6 +5,7 @@ import LoginRegister from './components/LoginRegister'
 import NoPage from "./components/NoPage";
 import UserPage from "./components/UserPage";
 import UserManagePage from "./components/UserManagePage";
+import UserAddAddress from "./components/UserAddAddress";
 
 const AppRoutes = () => {
     return(
@@ -13,6 +14,7 @@ const AppRoutes = () => {
             <Route path="/login" element={<LoginRegister />} />
             <Route path="/users/:userid" element={<UserPage />} />
             <Route path="/users/:userid/manage" element={<UserManagePage />} />
+            <Route path="/users/:userid/manage/address" element={<UserAddAddress />} />
             <Route path="*" element={<NoPage />} />
         </Routes>
     )
